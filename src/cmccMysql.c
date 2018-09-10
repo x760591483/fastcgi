@@ -5,6 +5,7 @@
 
 int mysqlLogin(mysqldata *dat,logdata *log)
 {
+    MYSQL *res = NULL;
     if(dat == NULL)
     {
         return TCS_ARG_NULL;
@@ -14,17 +15,19 @@ int mysqlLogin(mysqldata *dat,logdata *log)
     dat->handle = mysql_init(NULL);
     if(dat ->handle == NULL)
     {
+	logLog(log,LOGERR,"mysql_init is get null");
         return TCS_OTHER_ERR - 1;
     }
 	 logLog(log,LOGWAR,"mysql_init is ok");
-    dat->handle = mysql_real_connect(dat->handle,
+    res = mysql_real_connect(dat->handle,
                                      dat->host.date,
                                      dat->user.date,
                                      dat->passwd.date,
                                      dat->db.date,
                                      dat->port,NULL,0);
-    if(dat->handle ==NULL)
+    if(res ==NULL)
     {
+	logLog(log,LOGERR,mysql_error(dat->handle));
         return TCS_OTHER_ERR -2;
     }
 	 logLog(log,LOGWAR,"mysql_real_connect is ok");

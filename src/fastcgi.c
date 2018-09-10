@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	char *host="127.0.0.1";
 	char *usr="xxh";
 	char *passwd="xxh123456";
-	char *dbdata="xxhdb";
+	char *dbdata="xxhdatabase";
 	char *tablename="userdatahttp";
 	char *temspace=NULL;
 	mysqldata sqldata;
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
 			logLog(log,LOGINF,"password %d %s",ret,pass);
 
 			char seachdata[1024]={0};
-			sprintf(seachdata,"%s%s%s%s%s%s%s","select id,limitdata from ",sqldata.tablename.date," where name =\'",namedata,"\' and passdata = \'",pass,"\'");
+			sprintf(seachdata,"%s%s%s%s%s%s%s","select id,type from ",sqldata.tablename.date," where name =\'",namedata,"\' and passdata = \'",pass,"\'");
 			logLog(log,LOGINF,"%s",seachdata);
 			ret =  mysqlSearch(&sqldata,seachdata);
 			cJSON *json = cJSON_CreateObject();
